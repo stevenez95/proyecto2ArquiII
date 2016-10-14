@@ -1,0 +1,58 @@
+<ion-view view-title="Chats">
+  <ion-content>
+    <div class="list">
+    <!-- ***************** GAS **************** -->
+      <div class="item item-divider center" style="background-color:#B2DFDB;"> 
+          Gas
+      </div>
+      <div class = "row">
+        <div class = "col dBorder">Nivel de Gas</div>
+        <div class = "col dBorder">Peligro</div>
+        <div class = "col dBorder">Fecha</div>
+      </div>
+      <div class = "row" ng-repeat="gas in gases">
+        <div class = "col dBorder">{{gas.gasLevel}}</div>
+        <div class = "col dBorder">
+          <label class="toggle small">
+            <input type="checkbox" ng-checked="gas.danger" ng-disabled="true">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+          </label>
+        </div>
+        <div class = "col dBorder">{{gas.time | date:'MM/dd/yyyy @ h:mma'}}</div>
+      </div>
+    <!-- ***************** TEMP **************** -->
+    <div class="item item-divider center" style="background-color:#B2DFDB;"> 
+          Temperatura
+      </div>
+      <div class = "row">
+        <div class = "col dBorder">Temperatura</div>
+        <div class = "col dBorder">Peligro</div>
+        <div class = "col dBorder">Fecha</div>
+      </div>
+      <div class = "row" ng-repeat="temp in temps">
+        <div class = "col dBorder">{{temp.temperature}}</div>
+        <div class = "col dBorder">
+          <label class="toggle small">
+            <input type="checkbox" ng-checked="temp.danger" ng-disabled="true">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+          </label>
+        </div>
+        <div class = "col dBorder">{{temp.time | date:'MM/dd/yyyy @ h:mma'}}</div>
+      </div>
+      <!-- ***************** INTRUSOS **************** -->
+      <div class="item item-divider center" style="background-color:#B2DFDB;"> 
+          Intrusos
+      </div>
+      <div class = "row">
+        <div class = "col dBorder">Fecha</div>
+      </div>
+      <div class = "row" ng-repeat="int in intruders">
+        <div class = "col dBorder">{{int.time | date:'MM/dd/yyyy @ h:mma'}}</div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
