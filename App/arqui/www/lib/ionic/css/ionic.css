@@ -29,6 +29,10 @@ border-bottom-style: solid;
 border-width: 1px;
 border-bottom-color: black;
 }
+.bar.bar-materialize{
+      background-color: #FF5722;
+      color: #212121;
+    }
 @font-face {
   font-family: "Ionicons";
   src: url("../fonts/ionicons.eot?v=2.0.1");
