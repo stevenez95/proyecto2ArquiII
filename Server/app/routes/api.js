@@ -1,6 +1,27 @@
 var Intruder     = require('../models/intruder');
 var Gas     = require('../models/gas');
 var Temperature     = require('../models/temperature');
+var http = require('http');
+var dirA,dirB,dirI,dirD;
+
+var options = {
+  host: '192.168.1.67',
+  path: '/?flagSens=0&dirA=1&dirB=0&dirI=0&dirD=0'
+};
+
+callback = function(response) {
+  var str = '';
+
+  //another chunk of data has been recieved, so append it to `str`
+  response.on('data', function (chunk) {
+    str += chunk;
+  });
+
+  //the whole response has been recieved, so we just print it out here
+  response.on('end', function () {
+    console.log(str);
+  });
+}
 
 module.exports = function(app, express) {
 	var router = express.Router();
@@ -21,6 +42,8 @@ module.exports = function(app, express) {
         gas.save(function(err) {
             if (err)
                 res.send(err);
+            console.log('post gas');
+            console.log(req.body);
             res.json({ message: 'Gas created!' });
         })
     })
@@ -49,6 +72,8 @@ module.exports = function(app, express) {
         temp.save(function(err) {
             if (err)
                 res.send(err);
+            console.log('post temp');
+            console.log(req.body);
             res.json({ message: 'Temp created!' });
         })
     })
@@ -75,6 +100,8 @@ module.exports = function(app, express) {
         intruder.save(function(err) {
             if (err)
                 res.send(err);
+            console.log('post intruder');
+            console.log(req.body);
             res.json({ message: 'Intruder created!' });
         })
     })
@@ -95,8 +122,26 @@ module.exports = function(app, express) {
     //Moving car Endpoint
     router.route('/move/:dir')
     .post(function (req,res) {
-    	console.log(req.params.dir);
-    	res.send("ok")
-    })
+        var dirP = req.params.dir;
+        dirA=0;dirB=0;dirI=0;dirD=0;
+        if(dirP==='up')dirA=1;
+        else if(dirP==='down')dirB=1;
+        else if(dirP==='left')dirI=1;
+        else if(dirP==='down')dirD=1;
+        options.path = "/?flagSens=0&dirA="+dirA+"&dirB="+dirB+"&dirI="+dirI+"&dirD="+dirD;
+        http.request(options, callback).end();
+        res.send('ok');
+        // var uri =  "192.168.1.67:80/?dirA="+dirA+"&dirB="+dirB+"&dirI="+dirI+"&dirD="+dirD;
+    });
+
+    router.route('/sense/:flag')
+    .post(function (req,res) {
+        var flagSens = req.params.flag;
+        if(flagSens) options.path = "/?flagSens=1&dirA=0&dirB=0&dirI=0&dirD=0";
+        else options.path = "/?flagSens=1&dirA=0&dirB=0&dirI=0&dirD=0";
+        http.request(options, callback).end();
+        res.send('ok');
+        // var uri =  "192.168.1.67:80/?dirA="+dirA+"&dirB="+dirB+"&dirI="+dirI+"&dirD="+dirD;
+    });
 	return router;
 };

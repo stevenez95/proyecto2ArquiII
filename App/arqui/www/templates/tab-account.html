@@ -1,9 +1,13 @@
 <ion-view view-title="Account">
   <ion-content>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
+    	<button class="button button-positive button-block" ng-if="!sense" ng-click="changeSense()">
+ 	 		Start Sensing
+		</button>
+		<button class="button button-assertive button-block" ng-if="sense" ng-click="changeSense()">
+  			Stop Sensing
+		</button>
+		{{sense}}
     </ion-list>
   </ion-content>
 </ion-view>

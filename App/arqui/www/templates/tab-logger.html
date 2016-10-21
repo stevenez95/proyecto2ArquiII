@@ -3,7 +3,7 @@
     <div class="list">
     <!-- ***************** GAS **************** -->
       <div class="item item-divider center" style="background-color:#00BCD4;"> 
-          Gas
+          Gas <i class="icon ion-steam icon-right padding" style="font-size: 25px;"></i>
       </div>
       <div class = "row">
         <div class = "col dBorder">Nivel de Gas</div>
@@ -24,7 +24,7 @@
       </div>
     <!-- ***************** TEMP **************** -->
     <div class="item item-divider center" style="background-color:#00BCD4;"> 
-          Temperatura
+          Temperatura <i class="icon ion-thermometer icon-right padding" style="font-size: 25px;"></i>
       </div>
       <div class = "row">
         <div class = "col dBorder">Temperatura</div>
@@ -45,12 +45,19 @@
       </div>
       <!-- ***************** INTRUSOS **************** -->
       <div class="item item-divider center" style="background-color:#00BCD4;"> 
-          Intrusos
+          Intrusos <i class="icon ion-person icon-right padding" style="font-size: 25px;"></i>
       </div>
       <div class = "row">
         <div class = "col dBorder">Fecha</div>
+        <div class = "col dBorder">Peligro</div>
       </div>
       <div class = "row" ng-repeat="int in intruders">
+        <label class="toggle small">
+            <input type="checkbox" ng-checked="int.danger" ng-disabled="true">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+          </label>
         <div class = "col dBorder">{{int.time | date:'MM/dd/yyyy @ h:mma'}}</div>
       </div>
     </div>

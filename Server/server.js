@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 
 
+
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,7 +17,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
-var port = process.env.PORT || 8080;        // set our port
+var port = process.env.PORT || 8000;        // set our port
 
 mongoose.connect('mongodb://localhost/myapp', function (error) {
     if (error) console.error(error);

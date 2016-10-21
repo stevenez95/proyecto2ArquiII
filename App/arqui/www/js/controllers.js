@@ -1,21 +1,10 @@
-angular.module('starter.controllers', ['ionic.cloud'])
+angular.module('starter.controllers', [])
 
-.controller('ControlsCtrl', function($scope,$interval,$ionicPush) {
-  console.log('sdfds');
-  $ionicPush.register().then(function(t) {
-  return $ionicPush.saveToken(t);
-}).then(function(t) {
-  console.log('Token saved:', t.token);
-  alert(t.token);
-});
-
-$scope.$on('cloud:push:notification', function(event, data) {
-  var msg = data.message;
-  alert(msg.title + ': ' + msg.text);
-});
+.controller('ControlsCtrl', function($scope,$interval,Sensing) {
   var stop=0;
 
   $scope.move = function (dir) {
+    if(Sensing.all()) return;
     stop = $interval(function(){
       console.log(dir);
     }, 1000);
@@ -66,12 +55,17 @@ $scope.$on('cloud:push:notification', function(event, data) {
 
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
+.controller('AccountCtrl', function($scope,Sensing) {
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
+  $scope.refresh = function(){
+    $scope.sense = Sensing.all();
+    console.log($scope.sense);
+  };
+
+  $scope.refresh();
+
+  $scope.changeSense = function(){
+    Sensing.change();
+    $scope.refresh();
   };
 });
